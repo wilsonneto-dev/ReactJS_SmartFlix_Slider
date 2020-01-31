@@ -122,6 +122,12 @@ ul {
   &:hover .controls .control {
     opacity: 1;
   }
+
+  &.firstPage:hover .prev,
+  &.lastPage:hover .next {
+    opacity: 0;
+    cursor: inherit;
+  }
 }
 
 .infos {

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import clsx from 'clsx';
 
 import './styles.scss';
 
@@ -39,7 +40,13 @@ export default () => {
 
   return (
     <>
-      <div className="wrapper">
+      <div
+        className={clsx(
+          'wrapper',
+          currentPage === 0 && 'firstPage',
+          currentPage + 1 === totalPage && 'lastPage'
+        )}
+      >
         <div className="innerWrapper" ref={refSliderInnerWrapper}>
           <ul ref={refSliderUL}>
             {movies.map(i => (
