@@ -3,15 +3,15 @@ import clsx from 'clsx';
 
 import './styles.scss';
 
-import _ from 'lodash';
-
-export default () => {
-  const movies = _.range(30);
+export default ({ items, _heigthIndex }) => {
+  const movies = items;
+  const heigthIndex = _heigthIndex || 1.5;
 
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setPerPage] = useState(8);
   const [length, setLength] = useState(movies.length);
   const [totalPage, setTotalPages] = useState(Math.ceil(length / perPage));
+  const [itemHeight, setItemHeight] = useState(0);
 
   const refSliderInnerWrapper = useRef();
   const refSliderUL = useRef();
@@ -30,12 +30,31 @@ export default () => {
 
   useEffect(() => {
     processUi();
+    getItemHeight();
   }, [currentPage]);
 
-  const processUi = () => {
+  const getItemHeight = () => {
     const { offsetWidth } = refSliderInnerWrapper.current;
-    console.log(`${-offsetWidth * currentPage}px`);
+    setItemHeight((offsetWidth / perPage) * heigthIndex);
+  };
+
+  const processUi = () => {
+    // to move the ul element
+    const { offsetWidth } = refSliderInnerWrapper.current;
     refSliderUL.current.style.left = `${-offsetWidth * currentPage}px`;
+  };
+
+  const isSpecialClass = index => {
+    if ((index + 1) % 8 == 0) {
+      refSliderUL.current.classList.add('slider-fullleft');
+      console.log('full');
+    }
+  };
+
+  const leaveSpecialClass = index => {
+    if ((index + 1) % 8 == 0) {
+      refSliderUL.current.classList.remove('slider-fullleft');
+    }
   };
 
   return (
@@ -44,16 +63,27 @@ export default () => {
         className={clsx(
           'wrapper',
           currentPage === 0 && 'firstPage',
-          currentPage + 1 === totalPage && 'lastPage'
+          currentPage + 1 === totalPage && 'lastPage',
+          length < perPage && 'single-page'
         )}
       >
         <div className="innerWrapper" ref={refSliderInnerWrapper}>
           <ul ref={refSliderUL}>
-            {movies.map(i => (
-              <li key={i}>
+            {movies.map((i, index) => (
+              <li
+                key={i}
+                onMouseEnter={() => {
+                  isSpecialClass(index);
+                }}
+                onMouseLeave={() => {
+                  leaveSpecialClass(index);
+                }}
+                style={{ height: `${itemHeight}px` }}
+              >
                 <div className="item">
                   <span>
-                    {i + 1} <i className="fas fa-rocket"></i>
+                    {i + 1} <i className="fas fa-rocket"></i>&nbsp;
+                    <i className="fas fa-film"></i>
                   </span>
                 </div>
               </li>

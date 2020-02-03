@@ -7,10 +7,16 @@ body {
   height: 1500px;
 }
 
+.main {
+  overflow: hidden;
+  width: 100%;
+}
+
 .wrapper {
   margin-top: 100px;
   box-sizing: border-box;
   position: relative;
+  /* overflow: hidden; */
 
   .innerWrapper {
     width: 95%;
@@ -27,7 +33,11 @@ ul > li {
   margin: 0;
 }
 
-ul {
+div.wrapper.single-page {
+  width: auto;
+}
+
+div.wrapper ul {
   transition: all 1s;
   white-space: nowrap;
   position: relative;
@@ -36,7 +46,6 @@ ul {
     display: inline-block;
     width: calc(99% / 8);
     margin-right: 0.125%;
-    height: 300px;
     background-color: $items-color;
     transition: all 0.5s;
 
@@ -58,10 +67,19 @@ ul {
       }
     }
   }
+}
+
+div.wrapper:not(.single-page) ul {
   &:hover li {
     transform: translateX(-25%);
     opacity: 0.9;
   }
+
+  &.slider-fullleft:hover li {
+    transform: translateX(-50%);
+    opacity: 0.9;
+  }
+
   &:hover li:hover ~ li {
     transform: translateX(25%);
     opacity: 0.9;
@@ -84,6 +102,10 @@ ul {
     transform: translate(25%) scale(1.5) !important;
   }
 
+  &:hover li:nth-child(8n):hover {
+    transform: translate(-25%) scale(1.5) !important;
+  }
+
   li:nth-child(8n) {
     background-color: rgb(230, 230, 0);
   }
@@ -91,6 +113,19 @@ ul {
   li:nth-child(1),
   li:nth-child(8n + 1) {
     background-color: rgb(100, 235, 0);
+  }
+}
+
+div.wrapper.single-page ul {
+  &:hover li:hover {
+    transition: all 0.5s;
+    transform: translateX(25%) scale(1.5);
+    opacity: 1;
+  }
+
+  &:hover li:hover ~ li {
+    transform: translateX(50%);
+    opacity: 0.9;
   }
 }
 
