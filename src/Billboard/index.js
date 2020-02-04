@@ -15,6 +15,7 @@ export default ({ banners }) => {
 
   const dragStart = e => {
     e = e || window.event;
+    ulRef.current.style.transition = '';
     initialXBanner = ulRef.current.offsetLeft;
     initialXMovment = e.clientX;
     console.log(`Iniciou em ${e.clientX}`);
@@ -25,8 +26,13 @@ export default ({ banners }) => {
 
     const movmentOffset = e.clientX - initialXMovment;
     const newBannerPosition = initialXBanner + movmentOffset;
-
     initialXBanner = newBannerPosition;
+
+    if (initialXBanner > 0) {
+      initialXBanner = 0;
+      ulRef.current.style.transition = 'all 0.5s';
+      ulRef.current.style.left = `${initialXBanner}px`;
+    }
   };
 
   const drag = e => {
