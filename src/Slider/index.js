@@ -83,7 +83,6 @@ export default ({ items, _heigthIndex }) => {
                 <div className="item">
                   <span>
                     {i + 1} <i className="fas fa-rocket"></i>&nbsp;
-                    <i className="fas fa-film"></i>
                   </span>
                 </div>
               </li>
