@@ -1,4 +1,5 @@
 .billboard-wrapper {
+  position: relative;
   width: 100%;
 
   ul,
@@ -19,6 +20,35 @@
 
       img {
         width: 100%;
+      }
+    }
+  }
+
+  .controls {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+
+    ul {
+      padding-top: 5px;
+
+      li {
+        transition: all 0.5s;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin: 3px;
+        opacity: 0.5;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+        background: #1975d1;
+
+        &.active {
+          background-color: #0965c1;
+          opacity: 1;
+        }
       }
     }
   }

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Slider from './Slider';
 import Billboard from './Billboard';
+import Loading from './Loading';
 
 import _ from 'lodash';
 
@@ -25,6 +26,7 @@ function App() {
     <div className="main">
       <Slider items={_.range(16)} />
       <Billboard banners={bannersArray} />
+      <Loading />
     </div>
   );
 }
